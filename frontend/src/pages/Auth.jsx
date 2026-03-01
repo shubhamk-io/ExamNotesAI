@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from "motion/react"
 import { FcGoogle } from "react-icons/fc";
-import {  signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../utils/fireBase.js';
 import axios from 'axios'
 import { serverUrl } from '../App.jsx';
@@ -9,18 +9,18 @@ import { serverUrl } from '../App.jsx';
 const Auth = () => {
 
 const handleGoogleAuth = async () => {
-  try {
-    const response = await  signInWithPopup(auth, provider)
-    const  User = response.user
-    const name = User.displayName
-    const email = User.email
-    const result = await axios.post(serverUrl + "/api/auth/google", {name, email}, {
-      withCredentials:true
-    })
-    console.log(result.data)
-  } catch (error) {
-    
-  }
+try {
+  const response = await signInWithPopup(auth, provider)
+  const user = response.user
+  const name = user.displayName
+  const email = user.email
+ const result = await axios.post(serverUrl + "/api/auth/google", {name, email }, {
+  withCredentials:true
+ })
+ console.log(result.data)
+} catch (error) {
+  
+}
 }
 
   return (
