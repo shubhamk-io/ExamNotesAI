@@ -8,20 +8,20 @@ import { serverUrl } from '../App.jsx';
 
 const Auth = () => {
 
-const handleGoogleAuth = async () => {
-try {
-  const response = await signInWithPopup(auth, provider)
-  const user = response.user
-  const name = user.displayName
-  const email = user.email
- const result = await axios.post(serverUrl + "/api/auth/google", {name, email }, {
-  withCredentials:true
- })
- console.log(result.data)
-} catch (error) {
-  
-}
-}
+  const handleGoogleAuth = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider)
+      const user = response.user
+      const name = user.displayName
+      const email = user.email
+      const result = await axios.post(serverUrl + "/api/auth/google", { name, email }, {
+        withCredentials: true
+      })
+      console.log(result.data)
+    } catch (error) {
+
+    }
+  }
 
   return (
     <div className='min-h-screen overflow-hidden bg-white text-black px-8 sm:px-6 lg:px-7'>
@@ -71,7 +71,7 @@ try {
           </h1>
 
           <motion.button
-          onClick={handleGoogleAuth}
+            onClick={handleGoogleAuth}
             whileHover={{
               y: -10,
               scale: 1.07,
@@ -107,37 +107,37 @@ try {
 
         {/* Right Content */}
 
-        <motion.div 
-        initial={{opacity:0, x:60}}
-        animate={{opacity:1, x:0}}
-        transition={{duration:1.6}}
-        className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
-          <Feature 
-          icon="🎁" 
-          title= "50 Free Credits "
-          des =' Start with 50 credits to generate notes without paying '
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.6 }}
+          className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+          <Feature
+            icon="🎁"
+            title="50 Free Credits "
+            des=' Start with 50 credits to generate notes without paying '
           />
-          <Feature 
-          icon="📘" 
-          title= "Exam Notes "
-          des =' High-yield, revision-ready exam-oriented notes. '
+          <Feature
+            icon="📘"
+            title="Exam Notes "
+            des=' High-yield, revision-ready exam-oriented notes. '
           />
-          <Feature 
-          icon="📂" 
-          title= "Project Notes "
-          des ='Well-structured documentaion for assignment.'
+          <Feature
+            icon="📂"
+            title="Project Notes "
+            des='Well-structured documentaion for assignment.'
           />
-          <Feature 
-          icon="📊" 
-          title= "Chart & Graph"
-          des =' Auto-generated diagram, charts and flow graphs. '
+          <Feature
+            icon="📊"
+            title="Chart & Graph"
+            des=' Auto-generated diagram, charts and flow graphs. '
           />
-          <Feature 
-          icon="⬇️" 
-          title= "Free PDF Download"
-          des ='Download clean, printable PDFs instantly. '
+          <Feature
+            icon="⬇️"
+            title="Free PDF Download"
+            des='Download clean, printable PDFs instantly. '
           />
-        
+
 
         </motion.div>
 
@@ -154,14 +154,14 @@ function Feature({ icon, title, des }) {
       transition={{ type: "spring", stiffness: 200, damping: 18 }}
       className='relative rounded-2xl p-6 bg-gradient-to-br from-black/90 via-black/90 backdrop-blur-2xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)] text-white'
       style={{ transformStyle: "preserve-3d" }}>
-      <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity pointer-events-none'/>
+      <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity pointer-events-none' />
 
-        <div className='relative z-10' style={{ transform: "translateZ(30px)" }}>
-          <div className='text-4xl mb-3'>{icon}</div>
-          <h3 className='text-lg font-semibold mb-2'>{title}</h3>
-          <p className='text-gray-300 text-sm leading-relaxed'>{des}</p>
-        </div>
-      
+      <div className='relative z-10' style={{ transform: "translateZ(30px)" }}>
+        <div className='text-4xl mb-3'>{icon}</div>
+        <h3 className='text-lg font-semibold mb-2'>{title}</h3>
+        <p className='text-gray-300 text-sm leading-relaxed'>{des}</p>
+      </div>
+
     </motion.div>
   )
 }
