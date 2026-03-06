@@ -15,7 +15,7 @@ export const googleAuth = async (req:Request,res:Response) => {
     }
 
     // ✅ No need to await
-    const token = getToken(user._id.toString());
+    const token = await getToken(user._id.toString());
 
    res.cookie("token", token, {
   httpOnly: true,
