@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
-      await axios.get(serverUrl + "/api/auth/logout", {withCredentials:true})
+      await axios.get(serverUrl + "/api/auth/logout", { withCredentials: true })
       dispatch(setUserData(null))
       navigate("/auth")
     } catch (error) {
@@ -38,7 +38,7 @@ const Navbar = () => {
       flex items-center justify-between px-6 py-1.5
       text-white"
     >
-      <div className="flex items-center gap-2 cursor-pointer">
+      <div className="flex items-center gap-2 cursor-pointer" >
         {/* Logo */}
         <div className="bg-white/10 backdrop-blur-md p-1 rounded-lg border border-white/20">
           <img
@@ -94,7 +94,7 @@ const Navbar = () => {
                   Use credits to generate AI notes, diagrams & PDFs.
                 </p>
                 <button
-                  onClick={() => setShowCredits(false)}
+                  onClick={() => { setShowCredits(false); navigate("/pricing") }}
                   className="w-full py-2 rounded-lg bg-gradient-to-br from-white to-gray-200 text-black font-semibold hover:opacity-90"
                 >
                   Buy More Credits
@@ -128,7 +128,7 @@ const Navbar = () => {
                 className="absolute right-0 mt-4 w-52 rounded-2xl bg-black/90 backdrop-blur-xl border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.7)] p-4 text-white">
 
 
-                <MenuItems text="Histoy" onClick={()=>setShowProfile(false)} />
+                <MenuItems text="Histoy" onClick={() => { setShowProfile(false); navigate("/history") }} />
                 <div className="h-px bg-white/10 mx-3" />
                 <MenuItems text="sign out" red onClick={handleSignOut} />
 

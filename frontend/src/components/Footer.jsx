@@ -1,8 +1,27 @@
 import React from 'react'
 import { motion } from "motion/react"
 import examlogo from "../assets/examlogo.png"
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { serverUrl } from '../App'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../redux/userSlice'
 
 const Footer = () => {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleSignOut = async () => {
+        try {
+            await axios.get(serverUrl + "/api/auth/logout", { withCredentials: true })
+            dispatch(setUserData(null))
+            navigate("/auth")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -34,16 +53,43 @@ const Footer = () => {
                     <p className='text-sm text-gray-300 max-w-sm'>ExamNotes AI helps student generate exam-focused notes, revision material, diagram, and printable PDFs using AI. </p>
 
                 </motion.div>
-<div className='text-center'>
-    <h1 className='text-sm font-semibold text-white mb-4'>Quick Links</h1>
-<ul className='space-y-2 text-sm '>
-    <li className='text-gray-300 hover:text-white transition-colors'>Notes</li>
-    <li className='text-gray-300 hover:text-white transition-colors'>History</li>
-</ul>
+                <div className='text-center'>
+                    <h1 className='text-sm font-semibold text-white mb-4'>Quick Links</h1>
+                    <ul className='space-y-2 text-sm '>
+                        <li
+                            onClick={() => navigate("/notes")}
+                            className='text-gray-300 hover:text-white transition-colors'>Notes</li>
+                        <li
+                            onClick={() => navigate("/history")}
+                            className='text-gray-300 hover:text-white transition-colors'>History</li>
+                        <li
+                            onClick={() => navigate("/pricing")}
+                            className='text-gray-300 hover:text-white transition-colors'>Add Credits</li>
+                    </ul>
+                </div>
 
-</div>
+                <div className='text-center'>
+                    <h1 className='text-sm font-semibold text-white mb-4'>Supprot & Accounts</h1>
+                    <ul className='space-y-2 text-sm '>
+                        <li
+                            onClick={() => navigate("/auth")}
+                            className='text-gray-300 hover:text-white transition-colors'>SignIn</li>
+                        <li
+                            onClick={handleSignOut}
+                            className='text-red-500 hover:text-red-300 transition-colors'>SingOut</li>
+                        <li
+                            onClick={() => navigate("/pricing")}
+                            className='text-gray-300 hover:text-white transition-colors'>Support@studentnotes.com</li>
+                    </ul>
+                </div>
 
             </div>
+
+            <div className='my-6 h-px bg-white/10' />
+            <p className='text-center text-xs text-gray-500'>
+                © {new Date().getFullYear()} StudentNotes AI. All right reserved.
+            </p>
+
         </motion.div>
     )
 }

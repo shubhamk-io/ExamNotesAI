@@ -3,14 +3,18 @@ import Navbar from '../components/navBar'
 import { motion } from "motion/react"
 import image1 from '../assets/image1.png'
 import Footer from '../components/Footer'
+import { useNavigate } from 'react-router-dom'
 
 
 const Home = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className='relative min-h-screen bg-white text-black overflow-hidden'>
       <Navbar />
       {/* Top section */}
-      <section className='max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center  '>
+      <section className='max-w-7xl mx-auto px-8 pt-25 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center  '>
 
         <div>
           <motion.div
@@ -44,12 +48,9 @@ const Home = () => {
             </motion.p>
 
             <motion.button
-
+              onClick={() => navigate("/notes")}
               whileHover={{
-                y: -10,
-                scale: 1.07,
-                rotateX: 8,
-                rotateY: -8,
+                scale: 1.04,
               }}
               whileTap={{ scale: 0.97 }}
               transition={{
@@ -98,13 +99,13 @@ const Home = () => {
 
       {/* Bottom */}
       <section className='max-w-6xl mx-auto px-8 py-25 grid grid-cols-1 md:grid-cols-4 gap-10'>
-<Feature icon="📘" title="Exam Notes" des="High-Yield exam-oriented notes with revision points." />
-<Feature icon="📂" title="Project Notes" des="Well-structured content for assignment and projects." />
-<Feature icon="📊" title="Diagrams" des="Atuo-generate visual diagram for clarity." />
-<Feature icon="⬇️" title="PDF Download" des="Download clean, printable PDFs instantly." />
+        <Feature icon="📘" title="Exam Notes" des="High-Yield exam-oriented notes with revision points." />
+        <Feature icon="📂" title="Project Notes" des="Well-structured content for assignment and projects." />
+        <Feature icon="📊" title="Diagrams" des="Atuo-generate visual diagram for clarity." />
+        <Feature icon="⬇️" title="PDF Download" des="Download clean, printable PDFs instantly." />
       </section>
 
-<Footer/>
+      <Footer />
 
     </div>
   )
