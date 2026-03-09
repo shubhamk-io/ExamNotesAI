@@ -115,7 +115,6 @@ function Feature({ icon, title, des }) {
   return (
     <motion.div
       whileHover={{ y: -12, rotateX: 8, rotateY: -8, scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 200, damping: 18 }}
       className='relative rounded-2xl p-6 bg-gradient-to-br from-black/90 via-black/90 backdrop-blur-2xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.7)] text-white'
       style={{ transformStyle: "preserve-3d" }}>
       <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity pointer-events-none' />

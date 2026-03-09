@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React, { useState } from 'react'
 import { motion } from "motion/react"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -9,6 +9,9 @@ const Notes = () => {
   const navigate = useNavigate()
   const { userData } = useSelector((state) => state.user)
   const credits = userData.credits
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState()
 
 
   return (
@@ -64,7 +67,7 @@ const Notes = () => {
 {/* ---------------Topic Box------------------ */}
       <motion.div
         className='mb-12' >
-        <Topics />
+        <Topics loading={loading} setResult={setResult} setLoading={setLoading} setError={setError}  />
       </motion.div>
 
     </div>
