@@ -66,20 +66,17 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
       </div>
 
       <motion.button
-      whileHover={!loading ? {scale:1.02} : {}}
-      whileTap={!loading ? {scale:0.95} : {}}
-      disabled={loading}
+        whileHover={!loading ? { scale: 1.02 } : {}}
+        whileTap={!loading ? { scale: 0.95 } : {}}
+        disabled={loading}
         className={`w-full mt-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition ${
           loading
             ? "bg-gray-300 text-gray-600 cursor-not-allowed "
             : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.25)] "
         } `}
       >
-
-{loading ? "Generating Notes... " : "Generate Notes"}
-
+        {loading ? "Generating Notes... " : "Generate Notes"}
       </motion.button>
-
     </motion.div>
   );
 };
