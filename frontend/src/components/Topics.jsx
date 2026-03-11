@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
+import { generateNotes } from "../services/api";
 
 const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [topic, setTopic] = useState("");
@@ -7,7 +8,37 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [examType, setExamType] = useState("");
   const [revisionMode, setrevisionMode] = useState(false);
   const [includeDiagram, setIncludeDiagram] = useState(false);
-  const [includeChart, setIncludeChart] = useState(false);
+  const [includeCharts, setIncludeCharts] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!topic.trim()) {
+      setError("Please Enter Your topic");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+ try {
+    const result = await generateNotes({
+      topic,
+      classLevel,
+      examType,
+      revisionMode,
+      includeDiagram,
+      includeCharts,
+    });
+setResult(result.data)
+setLoading(true)
+    
+  } catch (error) {
+    console.log(error)
+    setError("Failed to Fetch notes from server")
+    setLoading(false)
+  }
+
+  };
+
+ 
 
   return (
     <motion.div
@@ -60,12 +91,13 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
 
         <Toggle
           label="Include Chart "
-          checked={includeChart}
-          onChange={() => setIncludeChart(!includeChart)}
+          checked={includeCharts}
+          onChange={() => setIncludeCharts(!includeCharts)}
         />
       </div>
 
       <motion.button
+      onClick={handleSubmit}
         whileHover={!loading ? { scale: 1.02 } : {}}
         whileTap={!loading ? { scale: 0.95 } : {}}
         disabled={loading}

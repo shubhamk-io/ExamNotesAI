@@ -1,6 +1,6 @@
-import { json } from "node:stream/consumers"
 
-const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview:generateContent"
+
+const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
 
 export const generateGeminiResponse = async (prompt: any) => {
 
