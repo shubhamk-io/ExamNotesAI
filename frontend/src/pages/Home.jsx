@@ -47,7 +47,10 @@ const Home = () => {
               Generate Exam-focus notes, project documentation flow diagrams and revision ready-content using AI - Faster and cleaner and smarter
             </motion.p>
 
-            <motion.button
+            
+          </motion.div>
+
+ <motion.button
               onClick={() => navigate("/notes")}
               whileHover={{
                 scale: 1.04,
@@ -69,7 +72,7 @@ const Home = () => {
               Get Started
             </motion.button>
 
-          </motion.div>
+
         </div>
 
 

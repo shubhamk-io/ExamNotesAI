@@ -16,12 +16,21 @@ export const getCurrentUser = async (dispatch:any) => {
   }
 };
 
-export const generateNotes = async (payload:any) =>{
-try {
-  const result = await axios.post(serverUrl + "/api/notes/generate-notes" , payload, {withCredentials:true})
-  console.log(result.data)
-  return result.data
-} catch (error) {
-  console.log(error)
-}
-}
+export const generateNotes = async (payload:any) => {
+  try {
+
+    const result = await axios.post(
+      `${serverUrl}/api/notes/generate-notes`,
+      payload,
+      { withCredentials: true }
+    );
+
+    return result.data;
+
+  } catch (error:any) {
+
+    console.log(error.response?.data || error.message);
+
+    throw error; // important
+  }
+};

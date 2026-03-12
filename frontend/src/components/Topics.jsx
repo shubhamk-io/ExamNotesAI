@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { generateNotes } from "../services/api";
+import { useDispatch } from "react-redux";
+import { setUserData, updateCredits } from "../redux/userSlice";
 
 const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [topic, setTopic] = useState("");
@@ -9,36 +11,82 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [revisionMode, setrevisionMode] = useState(false);
   const [includeDiagram, setIncludeDiagram] = useState(false);
   const [includeCharts, setIncludeCharts] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [progressText, setProgressText] = useState("");
+const dispatch = useDispatch()
 
   const handleSubmit = async () => {
     if (!topic.trim()) {
       setError("Please Enter Your topic");
       return;
     }
+
     setError("");
     setLoading(true);
 
- try {
-    const result = await generateNotes({
-      topic,
-      classLevel,
-      examType,
-      revisionMode,
-      includeDiagram,
-      includeCharts,
-    });
-setResult(result.data)
-setLoading(true)
-    
-  } catch (error) {
-    console.log(error)
-    setError("Failed to Fetch notes from server")
-    setLoading(false)
-  }
+    try {
+      const response = await generateNotes({
+        topic,
+        classLevel,
+        examType,
+        revisionMode,
+        includeDiagram,
+        includeCharts,
+      });
 
+      console.log(response);
+
+      if (response?.data) {
+        setResult(response.data.data);
+      }
+      setLoading(false)
+      setClassLevel("")
+      setTopic("")
+      setExamType("")
+        setIncludeCharts(false)
+        setIncludeDiagram(false)
+
+
+        if(typeof response.creditsLeft === "number"){
+dispatch(updateCredits(response.creditsLeft))
+        }
+
+      
+
+    } catch (error) {
+      console.log(error);
+      setError("Failed to fetch notes from server");
+    } finally {
+      setLoading(false);
+    }
   };
 
- 
+  useEffect(() => {
+    if (!loading) {
+      setProgress(0);
+      setProgressText("");
+      return;
+    }
+
+    let value = 0;
+
+    const interval = setInterval(() => {
+      value += Math.random() * 8;
+
+      if (value >= 95) {
+        value = 95;
+        setProgressText("Almost Done");
+        clearInterval(interval);
+      } else if (value > 75) {
+        setProgressText("Finalizing notes");
+      } else if (value > 40) {
+        setProgressText("Processing content");
+      } else {
+        setProgressText("Generated Notes");
+      }
+      setProgress(Math.floor(value));
+    }, 700);
+  }, [loading]);
 
   return (
     <motion.div
@@ -97,7 +145,7 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
       </div>
 
       <motion.button
-      onClick={handleSubmit}
+        onClick={handleSubmit}
         whileHover={!loading ? { scale: 1.02 } : {}}
         whileTap={!loading ? { scale: 0.95 } : {}}
         disabled={loading}
@@ -109,6 +157,28 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
       >
         {loading ? "Generating Notes... " : "Generate Notes"}
       </motion.button>
+
+      {loading && (
+        <div className=" mt-4 space-y-2">
+          <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ ease: "easeOut", duration: "0.6" }}
+              className="h-full bg-gradient-to-r from-green-400 via-emerald-400 to-green-500 "
+            ></motion.div>
+          </div>
+
+          <div className="flex justify-between text-sm text-gray-300">
+            <span>{progressText}</span>
+            <span>{progress}%</span>
+          </div>
+          <p className="text-xs text-center text-gray-400">
+            This may take up to 2-5 minute. Please don't close or refresh tha
+            page.
+          </p>
+        </div>
+      )}
     </motion.div>
   );
 };

@@ -33,7 +33,7 @@ export const generateNotes = async (req: AuthRequest, res: Response) => {
             return res.status(403).json({ error: "Insufficient Credits" });
         }
 
-        res.status(200).json({ message: "Content generation allowed" });
+        
 
         const prompt = buildPrompt({
             topic,
@@ -44,7 +44,7 @@ export const generateNotes = async (req: AuthRequest, res: Response) => {
             includeCharts
         })
 
-        const aiResponse = generateGeminiResponse(prompt)
+        const aiResponse = await generateGeminiResponse(prompt)
 
         const notes = await Notes.create({
             user: user._id,
