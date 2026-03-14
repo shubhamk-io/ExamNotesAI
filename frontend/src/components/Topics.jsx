@@ -37,7 +37,7 @@ const dispatch = useDispatch()
       console.log(response);
 
       if (response?.data) {
-        setResult(response.data.data);
+       setResult(response.data);
       }
       setLoading(false)
       setClassLevel("")
@@ -47,10 +47,9 @@ const dispatch = useDispatch()
         setIncludeDiagram(false)
 
 
-        if(typeof response.creditsLeft === "number"){
-dispatch(updateCredits(response.creditsLeft))
-        }
-
+       if(typeof response.data.creditsLeft === "number"){
+ dispatch(updateCredits(response.data.creditsLeft))
+}
       
 
     } catch (error) {
