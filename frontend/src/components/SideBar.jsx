@@ -30,7 +30,7 @@ const SideBar = ({ result }) => {
             <div
               key={star}
               className="mb-3 rounded-lg bg-gray-50 border border-gray-200 p-3"
-            >
+              >
               <p className="text-sm font-semibold text-yellow-600 mb-1 ">
                 {star} Prioity
               </p>

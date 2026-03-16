@@ -13,7 +13,7 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [includeCharts, setIncludeCharts] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressText, setProgressText] = useState("");
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const handleSubmit = async () => {
     if (!topic.trim()) {
@@ -37,20 +37,20 @@ const dispatch = useDispatch()
       console.log(response);
 
       if (response?.data) {
-       setResult(response.data);
+        setResult(response.data);
       }
       setLoading(false)
       setClassLevel("")
       setTopic("")
       setExamType("")
-        setIncludeCharts(false)
-        setIncludeDiagram(false)
+      setIncludeCharts(false)
+      setIncludeDiagram(false)
 
 
-       if(typeof response.data.creditsLeft === "number"){
- dispatch(updateCredits(response.data.creditsLeft))
-}
-      
+      if (typeof response.data.creditsLeft === "number") {
+        dispatch(updateCredits(response.data.creditsLeft))
+      }
+
 
     } catch (error) {
       console.log(error);
@@ -148,11 +148,10 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
         whileHover={!loading ? { scale: 1.02 } : {}}
         whileTap={!loading ? { scale: 0.95 } : {}}
         disabled={loading}
-        className={`w-full mt-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition ${
-          loading
+        className={`w-full mt-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition ${loading
             ? "bg-gray-300 text-gray-600 cursor-not-allowed "
             : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.25)] "
-        } `}
+          } `}
       >
         {loading ? "Generating Notes... " : "Generate Notes"}
       </motion.button>

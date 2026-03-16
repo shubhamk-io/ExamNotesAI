@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ReactMarkDown from 'react-markdown'
 
 
 const markDownComponent = () => {
@@ -13,7 +14,7 @@ const markDownComponent = () => {
     </h2>
   }
   h3: ({ childern }) => {
-    return <h3 className='text-lg font-semibold text-gray-800 mt-4 mb-2 '>
+    <h3 className='text-lg font-semibold text-gray-800 mt-4 mb-2 '>
       {childern}
     </h3>
   }
@@ -36,6 +37,8 @@ const markDownComponent = () => {
 
 const FinalResul = ({ result }) => {
 
+  const [quickRevision, setQuickRevision] = useState(false)
+
   if (!result ||
     !result.subTopics ||
     !result.questions ||
@@ -55,11 +58,46 @@ const FinalResul = ({ result }) => {
           📘 Generated Notes
         </h2>
         <div className='flex gap-3'>
-          <button className=''></button>
-          <button></button>
+          <button className={`px-4 py-2 rounded-lg text-sm font-medium transition 
+          ${quickRevision
+              ? "bg-green-600 text-white"
+              : "bg-green-100 text-green-700 hover:bg-green-200"
+            } `}>{quickRevision ? "Exist Revision Mode " : "Quick Revision (5 min )"}</button>
+          <button className='px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700'>
+            ⬇️ Download PDF
+          </button>
         </div>
 
       </div>
+
+      {!quickRevision && <section>
+        {Object.entries(result.subTopics).map(([star, topics]) => {
+          return (
+            <div
+              key={star}
+              className="mb-3 rounded-lg bg-gray-50 border border-gray-200 p-3"
+            >
+              <p className="text-sm font-semibold text-yellow-600 mb-1 ">
+                {star} Prioity
+              </p>
+              <ul className="list-disc ml-4 text-sm text-gray-700 space-y-1">
+                {topics.map((t, i) => {
+                  return <li key={i}>{t}</li>;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </section>}
+
+      <section>
+        <div className='bg-white border border-gray-200 rounded-xl p-6'>
+          <ReactMarkDown components={markDownComponent}>
+            {result.notes}
+          </ReactMarkDown>
+        </div>
+      </section>
+
     </div>
   )
 }
