@@ -58,11 +58,13 @@ const FinalResul = ({ result }) => {
           📘 Generated Notes
         </h2>
         <div className='flex gap-3'>
-          <button className={`px-4 py-2 rounded-lg text-sm font-medium transition 
+          <button
+            onClick={() => setQuickRevision(!quickRevision)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition 
           ${quickRevision
-              ? "bg-green-600 text-white"
-              : "bg-green-100 text-green-700 hover:bg-green-200"
-            } `}>{quickRevision ? "Exist Revision Mode " : "Quick Revision (5 min )"}</button>
+                ? "bg-green-600 text-white"
+                : "bg-green-100 text-green-700 hover:bg-green-200"
+              } `}>{quickRevision ? "Exist Revision Mode " : "Quick Revision (5 min )"}</button>
           <button className='px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700'>
             ⬇️ Download PDF
           </button>
@@ -71,16 +73,19 @@ const FinalResul = ({ result }) => {
       </div>
 
       {!quickRevision && <section>
+
+        <SectionHeader icon="⭐" title="Sub Topics" color="indigo" />
+
         {Object.entries(result.subTopics).map(([star, topics]) => {
           return (
             <div
               key={star}
-              className="mb-3 rounded-lg bg-gray-50 border border-gray-200 p-3"
+              className="mb-3 "
             >
-              <p className="text-sm font-semibold text-yellow-600 mb-1 ">
+              <p className="font-medium text-indigo-600 mb-1  ">
                 {star} Prioity
               </p>
-              <ul className="list-disc ml-4 text-sm text-gray-700 space-y-1">
+              <ul className="list-disc ml-6 text-gray-700">
                 {topics.map((t, i) => {
                   return <li key={i}>{t}</li>;
                 })}
@@ -90,14 +95,50 @@ const FinalResul = ({ result }) => {
         })}
       </section>}
 
-      <section>
+      {!quickRevision && <section>
+
+        <SectionHeader icon="📝" title="Detailed List" color="purple" />
+
         <div className='bg-white border border-gray-200 rounded-xl p-6'>
           <ReactMarkDown components={markDownComponent}>
             {result.notes}
           </ReactMarkDown>
         </div>
       </section>
+      }
 
+{quickRevision && <section className='rounded-xl bg-gradient-to-r from-green-100 to-green-50 border border-r-green-200 p-6 '>
+  
+  <h3 className='font-bold text-green-700 mb-3 text-lg'>
+    ⚡ Exam Quick Rvision Points
+  </h3>
+  <ul className='list-disc ml-6 space-y-1 text-gray-800'>
+    {result.revisionPoints.map((p,i)=>{
+      return <li key={i}>{p}</li>
+    })}
+  </ul>
+
+  </section>}
+
+    </div>
+  )
+}
+
+
+function SectionHeader({ icon, title, color }) {
+  const colors = {
+    indigo: "from-indigo-100 to-indigo-50 text-indigo-700",
+    purple: "from-purple-100 to-purple-50 text-purple-700",
+    blue: "from-blue-100 to-blue-50 text-blue-700",
+    green: "from-green-100, to-green-50 text-green-700",
+    cyan: "from-cyan-100 to-cyan-50 text-cyan-700",
+    rose: "from-rose-100 to-rose-50 text-rose-700"
+  };
+
+  return (
+    <div className={`mb-4 px-4 py-2 rounded-lg bg-gradient-to-r ${colors[color]} font-semibold flex items-center gap-2`}>
+      <span>{icon}</span>
+      <span>{title}</span>
     </div>
   )
 }
