@@ -77,11 +77,61 @@ IMPORTANCE RULES:
 
 DIAGRAM RULES:
 - If INCLUDE DIAGRAM is YES:
+
+  CORE FORMAT:
   - diagram.data MUST be a SINGLE STRING
-  - Valid Mermaid syntax only
-  - Must start with: graph TD
+  - Use ONLY valid Mermaid syntax
+  - MUST start with: graph TD
   - Wrap EVERY node label in square brackets [ ]
   - Do NOT use special characters inside labels
+  - Use ONLY simple English words
+
+  STRUCTURE ENFORCEMENT:
+  - ALWAYS create hierarchical structure (NOT flat)
+  - Root node must appear ONLY once
+  - All nodes must branch from root
+
+  SUBGRAPH RULES:
+  - MUST use subgraph to group related concepts
+  - Create 2 to 3 subgraphs maximum
+  - Each subgraph must contain 2 to 3 nodes
+  - Subgraphs must connect to root
+
+  DIAGRAM TYPE:
+  - Process → Linear flow
+  - Theory → Grouped hierarchy
+  - Comparison → Multi-branch
+  - Cycle → Loop if needed
+
+  NODE RULES:
+  - Each node 2 to 5 words
+  - Keywords only
+  - No duplicates
+
+  STRUCTURE RULES:
+  - Root → Subgraph → Child nodes
+  - Max depth 3
+  - Use --> arrows
+  - Keep logical flow
+
+  BALANCE RULES:
+  - Total nodes 6 to 10
+  - Avoid clutter
+
+  CONNECTION RULES:
+  - All nodes connected
+  - No random arrows
+
+  ERROR PREVENTION:
+  - No flat diagrams
+  - No repeated root
+  - No broken syntax
+
+  OUTPUT QUALITY:
+  - Must be structured
+  - Must help revision
+  - Must improve clarity
+
 - If INCLUDE DIAGRAM is NO:
   - diagram.data MUST be ""
 
@@ -90,10 +140,10 @@ CHART RULES (RECHARTS):
   - charts array MUST NOT be empty
   - Generate at least ONE chart
   - Choose chart based on topic type:
-    - THEORY topic → bar or pie (importance / weightage)
-    - PROCESS topic → bar or line (steps / stages)
+    - THEORY → bar or pie
+    - PROCESS → bar or line
   - Use numeric values ONLY
-  - Labels must be short and exam-oriented
+  - Labels must be short
 - If INCLUDE CHARTS is NO:
   - charts MUST be []
 

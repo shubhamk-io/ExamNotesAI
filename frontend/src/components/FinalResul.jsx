@@ -1,39 +1,46 @@
 import React, { useState } from 'react'
 import ReactMarkDown from 'react-markdown'
+import MermidSetup from './MermidSetup';
+import Rechart from './Rechart';
 
 
-const markDownComponent = () => {
-  h1: ({ childern }) => {
-    return <h1 className='text-2xl font-bold text-indigo-700 mt-6 mb-4 border-b pb-2 '>
-      {childern}
+const markDownComponent = {
+  h1: ({ children }) => (
+    <h1 className="text-2xl font-bold text-indigo-700 mt-6 mb-4 border-b pb-2">
+      {children}
     </h1>
-  }
-  h2: ({ childern }) => {
-    return <h2 className='text-xl font-semibold text-indigo-600 mt-5 mb-3 '>
-      {childern}
+  ),
+
+  h2: ({ children }) => (
+    <h2 className="text-xl font-semibold text-indigo-600 mt-5 mb-3">
+      {children}
     </h2>
-  }
-  h3: ({ childern }) => {
-    <h3 className='text-lg font-semibold text-gray-800 mt-4 mb-2 '>
-      {childern}
+  ),
+
+  h3: ({ children }) => (
+    <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">
+      {children}
     </h3>
-  }
-  p: ({ childern }) => {
-    return <p className='text-gray-700 leading-relaxed mb-3  '>
-      {childern}
+  ),
+
+  p: ({ children }) => (
+    <p className="text-gray-700 leading-relaxed mb-3">
+      {children}
     </p>
-  }
-  ul: ({ childern }) => {
-    return <ul className='list-disc ml-6 space-y-1 text-gray-700  '>
-      {childern}
+  ),
+
+  ul: ({ children }) => (
+    <ul className="list-disc ml-6 space-y-1 text-gray-700">
+      {children}
     </ul>
-  }
-  li: ({ childern }) => {
-    return <li className='marker:text-indigo-500 '>
-      {childern}
+  ),
+
+  li: ({ children }) => (
+    <li className="marker:text-indigo-500">
+      {children}
     </li>
-  }
-}
+  ),
+};
 
 const FinalResul = ({ result }) => {
 
@@ -107,18 +114,71 @@ const FinalResul = ({ result }) => {
       </section>
       }
 
-{quickRevision && <section className='rounded-xl bg-gradient-to-r from-green-100 to-green-50 border border-r-green-200 p-6 '>
-  
-  <h3 className='font-bold text-green-700 mb-3 text-lg'>
-    ⚡ Exam Quick Rvision Points
-  </h3>
-  <ul className='list-disc ml-6 space-y-1 text-gray-800'>
-    {result.revisionPoints.map((p,i)=>{
-      return <li key={i}>{p}</li>
-    })}
-  </ul>
+      {quickRevision && <section className='rounded-xl bg-gradient-to-r from-green-100 to-green-50 border border-r-green-200 p-6 '>
 
-  </section>}
+        <h3 className='font-bold text-green-700 mb-3 text-lg'>
+          ⚡ Exam Quick Rvision Points
+        </h3>
+        <ul className='list-disc ml-6 space-y-1 text-gray-800'>
+          {result.revisionPoints.map((p, i) => {
+            return <li key={i}>{p}</li>
+          })}
+        </ul>
+
+      </section>}
+
+      {result.diagram?.data && <section>
+        <SectionHeader icon="📊" title="Diagram" color="cyan" />
+
+        <MermidSetup diagram={result.diagram?.data} />
+        <p className='mt-3 text-xs text-gray-500 italic'>
+          ℹ️ If you need this diagram for future refrence or revision,
+          you can save it by taking a screenShot.
+        </p>
+      </section>}
+
+      {result.charts && result.charts.length > 0 && <section>
+        <SectionHeader icon="📈" title="Visual Chart" color="indigo" />
+        <Rechart charts={result.charts} />
+        <p className='mt-3 text-xs '>
+          ℹ️ If you need this diagram for future refrence or revision,
+          you can save it by taking a screenShot.
+        </p>
+
+      </section>}
+
+      {result.charts && result.charts.length === 0 && (
+        <p className='text-sm text-gray-400 italic'>
+          📉 Charts are not relevent for this topic
+        </p>
+      )}
+
+      <section>
+        <SectionHeader icon="❓" title="Important Questions" color="rose" />
+
+        <p className='font-medium '>Short Questions</p>
+        <ul className='list-disc ml-6 text-gray-700 '>
+          {result.questions.short.map((q, i) => {
+            return <li key={i}>
+              {q}
+            </li>
+          })}
+        </ul>
+
+        <p className='font-medium mt-4 '>Long Questions</p>
+        <ul className='list-disc ml-6 text-gray-700 '>
+          {result.questions.long.map((q, i) => {
+            return <li key={i}>
+              {q}
+            </li>
+          })}
+        </ul>
+        <p className='font-medium mt-4 '>Diagram Questions</p>
+        <ul className='list-disc ml-6 text-gray-700 '>
+          <li>{result.questions.diagram}</li>
+        </ul>
+
+      </section>
 
     </div>
   )

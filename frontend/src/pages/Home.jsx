@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/navBar'
+import Navbar from "../components/Navbar"
 import { motion } from "motion/react"
 import image1 from '../assets/image1.png'
 import Footer from '../components/Footer'
@@ -47,30 +47,30 @@ const Home = () => {
               Generate Exam-focus notes, project documentation flow diagrams and revision ready-content using AI - Faster and cleaner and smarter
             </motion.p>
 
-            
+
           </motion.div>
 
- <motion.button
-              onClick={() => navigate("/notes")}
-              whileHover={{
-                scale: 1.04,
-              }}
-              whileTap={{ scale: 0.97 }}
-              transition={{
-                type: "spring",
-                stiffness: 800,
-                damping: 18,
-                mass: 0.6
-              }}
-              className='mt-10 px-10 py-3 rounded-xl 
+          <motion.button
+            onClick={() => navigate("/notes")}
+            whileHover={{
+              scale: 1.04,
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{
+              type: "spring",
+              stiffness: 800,
+              damping: 18,
+              mass: 0.6
+            }}
+            className='mt-10 px-10 py-3 rounded-xl 
               flex items-center gap-3 
               bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900
               border border-blue-500/40
               text-white font-semibold text-lg
               shadow-[0_20px_40px_rgba(30,64,175,0.45)]
               relative overflow-hidden transition-all duration-300'>
-              Get Started
-            </motion.button>
+            Get Started
+          </motion.button>
 
 
         </div>
