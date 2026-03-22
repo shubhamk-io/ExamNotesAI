@@ -8,6 +8,7 @@ import connectDb from "./config/connectDB.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import notesRouter from "./routes/generate.routes.js";
+import pdfRouter from "./routes/pdf.route.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter)
 app.use("/api/notes",notesRouter)
+app.use("/api/pdf",pdfRouter)
 
 connectDb().then(() => {
     app.listen(PORT, () => {

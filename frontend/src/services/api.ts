@@ -34,3 +34,36 @@ export const generateNotes = async (payload:any) => {
     throw error; // important
   }
 };
+
+
+
+export const downloadPdf = async (result: any) => {
+  try {
+    const response = await axios.post(
+      serverUrl + "/api/pdf/generate-pdf",
+      { result },
+      {
+        responseType: "blob",
+        withCredentials: true,
+      }
+    );
+
+    // ✅ create blob from response
+    const blob = new Blob([response.data], { type: "application/pdf" });
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ExamNotesAI.pdf";
+
+    document.body.appendChild(link);
+    link.click();
+
+    link.remove(); 
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error("PDF download error:", error);
+  }
+};

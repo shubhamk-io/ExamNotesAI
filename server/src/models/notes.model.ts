@@ -9,6 +9,9 @@ interface INotes extends Document {
     includeDiagram?: boolean;
     includeCharts?: boolean;
     content?: any;
+ 
+createdAt: Date;   // ✅ add this
+    updatedAt: Date;
 }
 
 const NotesSchema: Schema<INotes> = new Schema(
