@@ -1,14 +1,3 @@
-
-interface PromptOptions {
-  topic: string
-  classLevel?: string
-  examType?: string
-  revisionMode?: boolean
-  includeDiagram?: boolean
-  includeCharts?: boolean
-}
-
-
 export const buildPrompt = ({
   topic,
   classLevel,
@@ -16,8 +5,8 @@ export const buildPrompt = ({
   revisionMode,
   includeDiagram,
   includeCharts
-}: PromptOptions) => {
-    return `
+}) => {
+  return `
 You are a STRICT JSON generator for an exam preparation system.
 
 ⚠️ VERY IMPORTANT:
