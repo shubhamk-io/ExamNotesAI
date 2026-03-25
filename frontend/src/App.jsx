@@ -11,7 +11,7 @@ import Pricing from './pages/Pricing'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSucces'
 
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://examnotesaiserverr.onrender.com"
 
 const App = () => {
 
