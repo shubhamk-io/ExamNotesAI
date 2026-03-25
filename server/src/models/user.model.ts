@@ -34,7 +34,7 @@ const UserSchema: Schema<IUser> = new Schema(
         },
         credits: {
             type: Number,
-            default: 200,
+            default: 20,
             min: 0
         },
         isCreditAvailable: {
