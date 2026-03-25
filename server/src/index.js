@@ -22,7 +22,7 @@ app.post(
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",
+    "https://examnotesaifrontrend.onrender.com",
     "https://googlauthexamnotes.firebaseapp.com"
   ],
   credentials: true
