@@ -9,8 +9,16 @@ import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import notesRouter from "./routes/generate.routes.js";
 import pdfRouter from "./routes/pdf.route.js";
+import creditRouter from "./routes/credits.route.js";
+import { stripeWebHook } from "./controllers/credits.controller.js";
 
 const app = express();
+
+app.post(
+  "/api/credits/webhook",
+  express.raw({type:"application/json"}),
+  stripeWebHook
+);
 
 app.use(cors({
   origin: [
@@ -33,6 +41,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter)
 app.use("/api/notes",notesRouter)
 app.use("/api/pdf",pdfRouter)
+app.use("/api/credit",creditRouter)
 
 connectDb().then(() => {
     app.listen(PORT, () => {
