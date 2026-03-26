@@ -18,14 +18,21 @@ const Auth = () => {
       const user = response.user
       const name = user.displayName
       const email = user.email
-      const result = await axios.post(serverUrl + "/api/auth/google", { name, email }, {
-        withCredentials: true
-      })
-      dispatch(setUserData(result.data))
-    } catch (error) {
 
+      const result = await axios.post(
+        serverUrl + "/api/auth/google",
+        { name, email },
+        { withCredentials: true }
+      )
+
+     
+      dispatch(setUserData(result.data.user))
+
+    } catch (error) {
+      
+      console.error("Google Auth failed:", error)
     }
-  }
+}
 
   return (
     <div className='min-h-screen overflow-hidden bg-white text-black px-8 sm:px-6 lg:px-7'>
