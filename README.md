@@ -12,7 +12,7 @@ An intelligent, full-stack platform that helps students generate high-quality, e
 
 <br/>
 
-<a href="https://examnotesaifrontrend.onrender.com">🌐 Live Demo</a> • <a href="https://github.com/shubhamk-io/ExamNotesAI/issues">🐛 Report Bug</a> • <a href="https://github.com/shubhamk-io/ExamNotesAI/issues">✨ Request Feature</a>
+<a href="https://examnotesaifrontrend.onrender.com/">🌐 Live Demo</a> • <a href="https://github.com/shubhamk-io/ExamNotesAI/issues">🐛 Report Bug</a> • <a href="https://github.com/shubhamk-io/ExamNotesAI/issues">✨ Request Feature</a>
 
 <br/><br/>
 
