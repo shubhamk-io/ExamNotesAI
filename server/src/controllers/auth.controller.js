@@ -1,15 +1,14 @@
 import UserModel from "../models/user.model.js";
 import { getToken } from "../utils/token.js";
 
-// Cookie options ek jagah define karo — reuse karo
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: true,
   sameSite: "none",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // ✅ 7 days
 };
 
-// 🔥 Google Auth
 export const googleAuth = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -24,18 +23,19 @@ export const googleAuth = async (req, res) => {
       user = await UserModel.create({ name, email });
     }
 
+    // ✅ await hataya — getToken ab sync hai
     const token = getToken(user._id.toString());
 
-    // ✅ Cookie set
     res.cookie("token", token, COOKIE_OPTIONS);
 
     return res.status(200).json({
       success: true,
-      token,        // ✅ Frontend ko bhi token do
+      token,
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
+        credits: user.credits, // ✅ credits add kiya
       },
     });
 
@@ -45,17 +45,10 @@ export const googleAuth = async (req, res) => {
   }
 };
 
-// 🔥 Logout
 export const logOutUser = async (req, res) => {
   try {
-    // ✅ Same options se clear karo — warna browser ignore karta hai
     res.clearCookie("token", COOKIE_OPTIONS);
-
-    return res.status(200).json({
-      success: true,
-      message: "Logout successfully",
-    });
-
+    return res.status(200).json({ success: true, message: "Logout successfully" });
   } catch (error) {
     console.error("Logout Error:", error.message);
     return res.status(500).json({ message: "Logout Error" });

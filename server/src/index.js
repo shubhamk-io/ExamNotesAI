@@ -14,6 +14,8 @@ import { stripeWebHook } from "./controllers/credits.controller.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.post(
   "/api/credits/webhook",
   express.raw({type:"application/json"}),

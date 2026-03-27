@@ -2,7 +2,7 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { setUserData } from "../redux/userSlice";
 
-export const getCurrentUser = async (dispatch:any) => {
+export const getCurrentUser = async (dispatch) => {
   try {
     const result = await axios.get(`${serverUrl}/api/user/currentuser`, {
       withCredentials: true
@@ -11,12 +11,12 @@ export const getCurrentUser = async (dispatch:any) => {
     dispatch(setUserData(result.data))
     return result.data;
 
-  } catch (error: any) {
+  } catch (error) {
     console.log(error.response?.data || error.message);
   }
 };
 
-export const generateNotes = async (payload:any) => {
+export const generateNotes = async (payload) => {
   try {
 
     const result = await axios.post(
@@ -27,7 +27,7 @@ export const generateNotes = async (payload:any) => {
 
     return result.data;
 
-  } catch (error:any) {
+  } catch (error) {
 
     console.log(error.response?.data || error.message);
 
@@ -37,7 +37,7 @@ export const generateNotes = async (payload:any) => {
 
 
 
-export const downloadPdf = async (result: any) => {
+export const downloadPdf = async (result) => {
   try {
     const response = await axios.post(
       serverUrl + "/api/pdf/generate-pdf",
