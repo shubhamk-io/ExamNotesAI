@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { generateNotes } from "../services/api";
 import { useDispatch } from "react-redux";
-import { setUserData, updateCredits } from "../redux/userSlice";
+import { updateCredits } from "../redux/userSlice";
 
 const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [topic, setTopic] = useState("");
@@ -13,7 +13,7 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
   const [includeCharts, setIncludeCharts] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressText, setProgressText] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     if (!topic.trim()) {
@@ -36,21 +36,22 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
 
       console.log(response);
 
+    
       if (response?.data) {
         setResult(response.data);
       }
-      setLoading(false)
-      setClassLevel("")
-      setTopic("")
-      setExamType("")
-      setIncludeCharts(false)
-      setIncludeDiagram(false)
 
-
-      if (typeof response.data.creditsLeft === "number") {
-        dispatch(updateCredits(response.data.creditsLeft))
+      
+      if (typeof response.creditsLeft === "number") {
+        dispatch(updateCredits(response.creditsLeft));
       }
 
+      // ✅ Reset form
+      setClassLevel("");
+      setTopic("");
+      setExamType("");
+      setIncludeCharts(false);
+      setIncludeDiagram(false);
 
     } catch (error) {
       console.log(error);
@@ -85,6 +86,8 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
       }
       setProgress(Math.floor(value));
     }, 700);
+
+    return () => clearInterval(interval);
   }, [loading]);
 
   return (
@@ -102,42 +105,46 @@ const Topics = ({ loading, setLoading, setResult, setError }) => {
         type="text"
         onChange={(e) => setTopic(e.target.value)}
         value={topic}
-        className="w-full 
-p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-200 transition-all duration-300 shadow-md focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
+        className="w-full p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 
+        placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 
+        focus:border-blue-200 transition-all duration-300 shadow-md 
+        focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
         placeholder="Enter topic (e.g. Web development)"
       />
       <input
         type="text"
         onChange={(e) => setClassLevel(e.target.value)}
         value={classLevel}
-        className="w-full 
-p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-200 transition-all duration-300 shadow-md focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
+        className="w-full p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 
+        placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 
+        focus:border-blue-200 transition-all duration-300 shadow-md 
+        focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
         placeholder="Class / Level (e.g. Class 10)"
       />
       <input
         type="text"
         onChange={(e) => setExamType(e.target.value)}
         value={examType}
-        className="w-full 
-p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-200 transition-all duration-300 shadow-md focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
+        className="w-full p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 
+        placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 
+        focus:border-blue-200 transition-all duration-300 shadow-md 
+        focus:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
         placeholder="Exam Type (e.g. CBSE, JEE, NEET)"
       />
 
       <div className="flex flex-col md:flex-row gap-6">
         <Toggle
-          label="Examination Mode "
+          label="Examination Mode"
           checked={revisionMode}
           onChange={() => setrevisionMode(!revisionMode)}
         />
-
         <Toggle
           label="Include Diagram"
           checked={includeDiagram}
           onChange={() => setIncludeDiagram(!includeDiagram)}
         />
-
         <Toggle
-          label="Include Chart "
+          label="Include Chart"
           checked={includeCharts}
           onChange={() => setIncludeCharts(!includeCharts)}
         />
@@ -148,23 +155,24 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
         whileHover={!loading ? { scale: 1.02 } : {}}
         whileTap={!loading ? { scale: 0.95 } : {}}
         disabled={loading}
-        className={`w-full mt-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition ${loading
-            ? "bg-gray-300 text-gray-600 cursor-not-allowed "
-            : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.25)] "
-          } `}
+        className={`w-full mt-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-3 transition ${
+          loading
+            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+            : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.25)]"
+        }`}
       >
-        {loading ? "Generating Notes... " : "Generate Notes"}
+        {loading ? "Generating Notes..." : "Generate Notes"}
       </motion.button>
 
       {loading && (
-        <div className=" mt-4 space-y-2">
+        <div className="mt-4 space-y-2">
           <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
-              transition={{ ease: "easeOut", duration: "0.6" }}
-              className="h-full bg-gradient-to-r from-green-400 via-emerald-400 to-green-500 "
-            ></motion.div>
+              transition={{ ease: "easeOut", duration: 0.6 }}
+              className="h-full bg-gradient-to-r from-green-400 via-emerald-400 to-green-500"
+            />
           </div>
 
           <div className="flex justify-between text-sm text-gray-300">
@@ -172,8 +180,7 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
             <span>{progress}%</span>
           </div>
           <p className="text-xs text-center text-gray-400">
-            This may take up to 2-5 minute. Please don't close or refresh tha
-            page.
+            This may take up to 2-5 minutes. Please don't close or refresh the page.
           </p>
         </div>
       )}
@@ -184,7 +191,7 @@ p-2 rounded-xl bg-white/10 backdrop-blur-lg border border-blue-300/40 placeholde
 function Toggle({ onChange, label, checked }) {
   return (
     <div
-      className="flex items-center gap-4 cursor-pointer select-none "
+      className="flex items-center gap-4 cursor-pointer select-none"
       onClick={onChange}
     >
       <motion.div
@@ -194,17 +201,19 @@ function Toggle({ onChange, label, checked }) {
             : "rgba(255,255,255,0.15)",
         }}
         transition={{ duration: 0.25 }}
-        className="relative w-12 h-6 rounded-full border border-white/20  backdrop-blur-lg"
+        className="relative w-12 h-6 rounded-full border border-white/20 backdrop-blur-lg"
       >
         <motion.div
           className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
           style={{
             left: checked ? "1.6rem" : "0.25rem",
           }}
-        ></motion.div>
+        />
       </motion.div>
       <span
-        className={`text-sm transition-colors ${checked ? "text-green-300" : "text-gray-300 "}`}
+        className={`text-sm transition-colors ${
+          checked ? "text-green-300" : "text-gray-300"
+        }`}
       >
         {label}
       </span>
