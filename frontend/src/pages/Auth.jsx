@@ -108,7 +108,7 @@ const Auth = () => {
           </motion.button>
 
           <p className='mt-6 max-w-xl text-lg bg-gradient-to-br from-gray-700 via-gray-500/80 to-gray-700 bg-clip-text text-transparent' >
-            You get <span className='font-semibold '>50 FREE credits</span> to create exam notes, project notes, charts, graphs and
+            You get <span className='font-semibold '>20 FREE credits</span> to create exam notes, project notes, charts, graphs and
             download clean PDFs - instantly using AI.
           </p>
           <p> Start with 20 credits • Upgrade anytime • Instant access</p>
@@ -126,7 +126,7 @@ const Auth = () => {
           <Feature
             icon="🎁"
             title="20 Free Credits "
-            des=' Start with 50 credits to generate notes without paying '
+            des=' Start with 20 credits to generate notes without paying '
           />
           <Feature
             icon="📘"
