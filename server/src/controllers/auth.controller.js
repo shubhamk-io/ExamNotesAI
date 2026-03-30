@@ -23,7 +23,7 @@ export const googleAuth = async (req, res) => {
       user = await UserModel.create({ name, email });
     }
 
-    // ✅ await hataya — getToken ab sync hai
+    
     const token = getToken(user._id.toString());
 
     res.cookie("token", token, COOKIE_OPTIONS);
@@ -35,7 +35,7 @@ export const googleAuth = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        credits: user.credits, // ✅ credits add kiya
+        credits: user.credits, // ✅ credits add 
       },
     });
 
